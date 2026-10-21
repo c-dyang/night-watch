@@ -1,0 +1,29 @@
+%% Figure 4 — Outcome signals → zero-cost gate → escalation ladder
+%% Used in: zh/03-device.md §2/§3, en/03-device.md §2/§3
+flowchart TD
+  S1["Liveness signal"]
+  S2["Outcome signal<br/>exit code / self-report"]
+  S3["Artefact signal<br/>mtime / size / content"]
+  S4["Scheduler signal<br/>last result / next run"]
+  G{"Zero-cost gate<br/>pure function, no side effects<br/>freshness | whitelist | dedup | suppression"}
+  D["drop<br/>counter only"]
+  F["defer<br/>fold into daily roll-up"]
+  W["wake<br/>emit C3 event"]
+  L0["L0 silent record"]
+  L1["L1 daily roll-up"]
+  L2["L2 wake inspection<br/>free/local model judgement"]
+  L3["L3 whitelisted self-heal<br/>idempotent only + must self-verify"]
+  L4["L4 escalate to human<br/>queue → delivery side"]
+  S1 --> G
+  S2 --> G
+  S3 --> G
+  S4 --> G
+  G --> D
+  G --> F
+  G --> W
+  W --> L2
+  L2 -->|"worth acting, whitelisted"| L3
+  L2 -->|"not whitelisted / security surface"| L4
+  L3 -->|"self-verification failed"| L4
+  L0 -.-> L1
+  Note["Cost rule: no model call before wake (INV-D4)<br/>Error asymmetry: misses cost far more than false wakes"]

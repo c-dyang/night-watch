@@ -1,0 +1,26 @@
+%% Figure 1 — Three domains overview
+%% Used in: zh/00-front.md §3, en/00-front.md §3
+flowchart LR
+  subgraph M["Memory"]
+    M1["Pyramid memory<br/>inject → index → distill → raw"]
+    M2["Nightly settling<br/>extract → second distill → rotate"]
+    M3["Experience pack<br/>confidence ledger + blind review"]
+    M1 --- M2 --- M3
+  end
+  subgraph E["Execution"]
+    E1["External independent LLM"]
+    E2["Snippet audit"]
+    E3["Experience pre-check = drift guard"]
+    E4["Refine and rate"]
+    E1 --- E2 --- E3 --- E4
+  end
+  subgraph D["Device"]
+    D1["Outcome signals"]
+    D2["Zero-cost gate"]
+    D3["Escalation ladder L0→L4"]
+    D1 --- D2 --- D3
+  end
+  D3 -- "C1 outcome line" --> M2
+  E4 -- "C2 verdict + evidence" --> M3
+  D2 -- "C3 wake event" --> E1
+  M3 -. "pre-check hit" .-> E3

@@ -1,0 +1,13 @@
+%% Figure 3 — Nightly settling sequence (order is not interchangeable)
+%% Used in: zh/01-memory.md §2.1, en/01-memory.md §2.1
+sequenceDiagram
+  participant N as Nightly chain
+  participant S as Session family
+  participant R as Memory files
+  N->>S: 1. Extract — daily digest + blind review + index rebuild
+  N->>R: write L1 / L2 artefacts
+  N->>S: 2. Second distill — condense the day into experience candidates
+  N->>R: write experience body + candidate evidence
+  N->>S: 3. Rotate — archive sessions, start fresh
+  Note over N,S: Invariant: settling precedes rotation (INV-M4)
+  Note over N,R: On failure: report the gap, do not re-run (INV-M6)

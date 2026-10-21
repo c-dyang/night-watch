@@ -1,0 +1,14 @@
+%% Figure 5 — The only three cross-domain contracts
+%% Used in: zh/00-front.md §4, en/00-front.md §4
+sequenceDiagram
+  participant D as Device
+  participant M as Memory
+  participant E as Execution
+  Note over D,M: C1 outcome line — writer must be the supervisor, never the supervised task (INV-X1)
+  D->>M: append-only audit line (artefact freshness / exit code)
+  Note over E,M: C2 verdict + evidence — evidence must anchor to a production snippet (INV-E4)
+  E->>M: structured verdict record {class, severity, anchor, reason}
+  Note over D,E: C3 wake event — no wake without passing the zero-cost gate (INV-D4)
+  D->>E: one event {raw signal, gate reason}
+  Note over M,E: read path only — the experience pack shares Memory's retrieval entry (INV-M9)
+  M-->>E: matched entries for pre-check (hint, never a permit)

@@ -1,0 +1,12 @@
+%% Figure 2 — Pyramid memory: four layers and the drill-down path
+%% Used in: zh/01-memory.md §1.1, en/01-memory.md §1.1
+flowchart TD
+  L0["L0 Inject layer<br/>map / red lines / profile<br/>fixed size, read every round"]
+  L1["L1 Index layer<br/>daily digests + entry index<br/>full-text searchable"]
+  L2["L2 Distill layer<br/>per-day condensed event stream"]
+  L3["L3 Raw stream<br/>full archive, compressed<br/>~99% tool noise"]
+  L0 -->|"missing → drill"| L1
+  L1 -->|"need detail"| L2
+  L2 -->|"exhausted"| L3
+  X["Forbidden: start at L3<br/>(INV-M2) — judge on the dirtiest layer"]
+  X -.-> L3
