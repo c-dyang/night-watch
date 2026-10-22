@@ -76,6 +76,7 @@ Not an installer, not a product manual, but a **technical architecture document*
 | [`zh/05-appendix-b-pitfalls.md`](zh/05-appendix-b-pitfalls.md) | [`en/05-appendix-b-pitfalls.md`](en/05-appendix-b-pitfalls.md) | 16 个工程坑：现象 / 根因 / 判据 |
 | [`zh/06-invariants.md`](zh/06-invariants.md) | [`en/06-invariants.md`](en/06-invariants.md) | **32 条不变量**（两维标注），全卷锚点（INV-M/E/D/X） |
 | [`zh/07-sources.md`](zh/07-sources.md) | [`en/07-sources.md`](en/07-sources.md) | 两维定义与统计、**已知边界**、为何 0 条 Q0、三个可做实验 |
+| [`zh/08-evolution.md`](zh/08-evolution.md) | [`en/08-evolution.md`](en/08-evolution.md) | **演化史**：21 个真实触发 → 加了什么机制 → 对应不变量；含一次宿主迁移对照 |
 
 图源 / Diagram sources：[`figures/`](figures/)
 
