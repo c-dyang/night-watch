@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Night-watch · 守夜人 — 无人值守家用 agent 服务器架构</title>
-<meta name="description" content="Night-watch：用免费/本地模型的判定力，替代人的巡检力。三域架构（记忆 / 执行 / 设备）、32 条不变量、中英双语技术白皮书。">
+<title>Night-watch · 守夜人 — 无限任务范围 · 单会话入口下的个人 agent 长期架构</title>
+<meta name="description" content="Night-watch：从两条硬性要求（无限任务范围 · 单会话入口）出发，推出三域架构（记忆 / 执行 / 设备）与 32 条不变量；实际堆出来的一套无人值守个人 agent 架构，中英双语技术白皮书。">
 <style>
   :root{
     --bg:#0a0e13; --bg2:#0f151d; --card:#121a24; --line:#1f2c39;
@@ -131,6 +131,7 @@
     .barrow{grid-template-columns:78px 1fr 76px}
     header.hero{padding:44px 0 16px}
   }
+  .sub .sep{color:var(--dim2);margin:0 6px}
 </style>
 </head>
 <body>
@@ -150,8 +151,8 @@
   <h1 lang="zh">守夜人 <em>Night-watch</em></h1>
   <h1 lang="en">Night-watch</h1>
 
-  <p class="sub" lang="zh">用免费/本地模型的判定力，替代人的巡检力 —— 让设备与记忆在没人看着的时候保持完整。</p>
-  <p class="sub" lang="en">Replace human inspection with the judgement of free or local models — so devices and memory stay intact while nobody is watching.</p>
+  <p class="sub" lang="zh">起点只有两条硬性要求：<b>无限任务范围</b>（任务领域不预先封闭）与<span class="sep">·</span><b>单会话入口</b>（对用户只有一个对话框）。两者叠加在无人值守的机器上，压出了防偏 · 防忘 · 防崩三条线，再长出三域架构 —— <b>不是先有蓝图，是实际堆出来的</b>。</p>
+  <p class="sub" lang="en">It starts from two hard requirements: <b>unbounded task scope</b> (the task domain is never closed in advance) and <span class="sep">·</span><b>a single entry</b> (the user sees exactly one conversation). Stacked on an unattended machine, they press out three guards — drift, forgetting and silence — which in turn grow the three domains. <b>Not a blueprint first: built up from real operation.</b></p>
 
   <div class="tags">
     <span class="tag hi">v0.1-draft</span>
@@ -159,8 +160,10 @@
     <span class="tag ai" lang="en">AI-generated · human-reviewed</span>
     <span class="tag">CC BY 4.0</span>
     <span class="tag">c-dyang</span>
-    <span class="tag" lang="zh">32 条不变量</span>
-    <span class="tag" lang="en">32 invariants</span>
+    <span class="tag" lang="zh">32 条不变量 · 受控量化 0</span>
+    <span class="tag" lang="zh">两条硬性要求</span>
+    <span class="tag" lang="en">32 invariants · Q0 controlled: 0</span>
+    <span class="tag" lang="en">two hard requirements</span>
   </div>
 
   <div class="cta">

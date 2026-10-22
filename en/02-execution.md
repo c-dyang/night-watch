@@ -3,7 +3,9 @@
 > Memory handles "what should be known arrives". This chapter handles "what is happening right now does not drift".
 > One line: **self-discipline during execution cannot be trusted, so move judgement outside the session, look at small snippets, and refine and rate experience along the way.**
 
-> ⚠️ **All six invariants in this chapter are `claimed`** (design reasoning; no controlled experiment has been run in this implementation). Read them as "this design is more likely to hold", not as "proven". Nothing is hidden about that — see `07-sources.md`.
+> ⚠️ The six invariants in this chapter: **four are running and traceable (`Q1`)** — external verdicts, raw-snippet input, post-hoc correction, evidence from production sessions only; **two are `Q2` (events exist, no systematic record)** — two-tier latency, pre-checks that never become approvals.
+> **Not one is `Q0` (controlled/quantified); not one is `Q3` (pure design reasoning).**
+> Read them as *built up from real operation, with value not yet quantified* — not as *design reasoning*, and not as *proven*. See `07-sources.md` §2 / §4.
 
 ---
 

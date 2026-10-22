@@ -121,6 +121,6 @@ Honest list:
 - **No** installer, configuration wizard, or container orchestration.
 - **No** multi-user or permission model (single machine, single user assumed).
 - **No** web UI (a dashboard is optional observation, never the source of a health verdict).
-- **No** benchmark suite (the `claimed` entries have not been validated in a controlled experiment — see `07-sources.md`).
+- **No** benchmark suite (of the 32 invariants, `Q0` controlled/quantified is **0**; the mechanisms run and have artefacts — what is missing is the "how much worse without it" number, see `07-sources.md` §2 / §5).
 
 If you need any of the above, your scenario has left this document's assumptions; treat those as separate designs, not as missing features of this architecture.

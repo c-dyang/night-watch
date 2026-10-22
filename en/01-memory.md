@@ -165,7 +165,7 @@ Merging them into one file has a predictable outcome: the author and the rater b
   "type": "fact | pitfall | procedure | preference",
   "confidence": 0.0,
   "evidence": [
-    {"kind": "session_snippet", "anchor": "<session / turn locator>", "strength": "measured | observed | claimed"}
+    {"kind": "session_snippet", "anchor": "<session / turn locator>", "stance": "running | partial | convention-only | not-implemented", "evidence": "Q0 | Q1 | Q2 | Q3"}
   ],
   "tombstoned": false,
   "deprecated_by": null,
@@ -176,7 +176,8 @@ Merging them into one file has a predictable outcome: the author and the rater b
 Key points:
 
 - `evidence` must point at **production session snippets**; "the model thinks it is right" and "the document says so" do not qualify [INV-E4].
-- `strength` uses the same three tiers as the invariant table (measured / observed / claimed). **Evidence strength and score are separate**: a `claimed` entry may score high, but the reader must know it is reasoning.
+- `stance` and `evidence` use the **same two dimensions as the invariant table**: **stance** (running / partial / convention-only / not-implemented) × **evidence** (`Q0` controlled · `Q1` traceable, not quantified · `Q2` observed, not quantified · `Q3` reasoned only) [INV-M7].
+- **Score and evidence are separate**: an entry can score high and still sit at `Q1` — the score says *it works well on this machine*, `Q1` says *its value has never been quantified*. The reader must see both at once.
 - `tombstoned` instead of physical deletion: a refuted experience is still information ("we tried this path; it does not work").
 
 ### 3.3 Verdict protocol
