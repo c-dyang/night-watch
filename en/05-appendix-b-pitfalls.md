@@ -69,5 +69,37 @@
 | #14 | Parsing must not depend on localised presentation (process discipline) |
 | #15 | External failures must be classified, never retried blindly [INV-E5] |
 | #16 | Multiple sources are not multiple proofs; compare within a batch (process discipline) |
+| #17 | The behaviour baseline must be present and separate from knowledge injection [INV-M12] |
+| #18 | Prove the existing chain is broken before adding a layer (process discipline) |
+| #19 | Deleting a component requires a reference sweep (process discipline) |
+| #20 | Check mtime and change history before citing a file's state as evidence (process discipline) |
+| #21 | Declarations and facts must be reconciled both ways (verifying only new consumers leaves silent zeros) [INV-X6] |
 
 > Note: the entries marked "process discipline" were deliberately **not** promoted to invariants, because they constrain the person writing the code, not the structure of the system. That distinction is exactly why they live in the appendix.
+
+---
+
+## B.6 Behaviour class (discipline drifts, the system stays green)
+
+> Common trait: **no metric turns red**. The process is alive, tasks succeed, artefacts are complete — the executor merely drifts from "a constrained assistant" to "an eager generic one".
+
+| # | Symptom | Root cause | Test |
+|---|---|---|---|
+| 17 | Overtaking rises sharply one day: it starts building components, editing rules, borrowing community templates, while every metric stays green | **The behaviour baseline is absent or diluted.** The system prompt / persona carries "who I am + how I must work"; without it the model reverts to generic defaults and **raises no error** | Run the same task class twice, once with the baseline present and once with only a summary at the start; a clear difference means you hit it |
+| 18 | The same thing gets recorded twice and degrades | A new layer was added without checking the existing chain; the new layer overlaps the old one | Ask "which link in the existing chain is broken?"; no answer means you are adding, not repairing |
+| 19 | A component is deleted but references remain everywhere | Only the call sites you remembered were edited; no reference sweep was done | Sweep the live inventory (map / framework / red lines / indexes / dependency table / skills / scripts) one by one; only then is it deleted |
+| 20 | "I cannot find it now" is treated as "it never happened" | The cited file was rolled back or replaced | Check mtime and change history first; an mtime earlier than the referenced rebuild date means you hit it |
+
+**Why its own section**: B.1–B.4 pits can be caught from artefacts or logs; this class only shows up in **the quality of the output**, and quality has no automatic criterion — so it needs a controlled comparison or human review, not monitoring.
+
+---
+
+## B.7 Change class (changed here, forgot there)
+
+> Shared trait: **the change itself was right; what leaked was "who reads it"**. In a personal setup the consumer is you, both ends of the contract are the same person, so nothing forces an inventory of downstream readers — and the failure raises no error.
+
+| # | Symptom | Root cause | Test |
+|---|---|---|---|
+| 21 | A line-prefix format change looks fine downstream, yet one whole class of records no longer exists | The consumer's parse anchor (e.g. `^[user]`) is anchored at `^`, so an added prefix never matches; **the failure is silent** — no exception, the hit count simply goes from N to 0 | Replay **real historical files** before and after the change and compare hit counts; N→0 means you hit it (measured: 199/228/224 → 0/0/0, discovered a day later only because the output file was 876 B) |
+
+**Why its own section**: B.1–B.4 failures at least leave "no output" behind; here **output is produced normally**, just missing an entire class of content. It is more dangerous than a total blackout — a blackout shows up immediately, a silent zero can survive a full day.
