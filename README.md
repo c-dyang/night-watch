@@ -3,7 +3,7 @@
 **无限任务范围 · 单会话入口下的个人 agent 长期架构**
 **An architecture for personal agents with unbounded task scope and a single entry.**
 
-- 状态 Status：`v0.1-draft`（结构完整；**33 条不变量：受控量化 0 条 / 可追溯未量化 26 条 / 观察未量化 7 条 / 纯推理 0 条**）
+- 状态 Status：`v0.1-draft`（结构完整；**36 条不变量：受控量化 0 条 / 可追溯未量化 26 条 / 观察未量化 10 条** / 纯推理 0 条**）
 - 署名 Author：`c-dyang`
 - 文档许可 Docs license：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) ｜ 附录代码 Appendix code：[MIT](https://opensource.org/licenses/MIT)
 - 在线阅读 Homepage：<https://c-dyang.github.io/night-watch/>
@@ -74,8 +74,9 @@ Not an installer, not a product manual, but a **technical architecture document*
 | [`zh/03-device.md`](zh/03-device.md) | [`en/03-device.md`](en/03-device.md) | 四类信号、0 成本闸门三态、L0→L4 阶梯 |
 | [`zh/04-appendix-a-reference.md`](zh/04-appendix-a-reference.md) | [`en/04-appendix-a-reference.md`](en/04-appendix-a-reference.md) | 子系统体量与最小接口（~3k 行，8 个子系统） |
 | [`zh/05-appendix-b-pitfalls.md`](zh/05-appendix-b-pitfalls.md) | [`en/05-appendix-b-pitfalls.md`](en/05-appendix-b-pitfalls.md) | 20 个工程坑：现象 / 根因 / 判据（含行为类 4 条） |
-| [`zh/06-invariants.md`](zh/06-invariants.md) | [`en/06-invariants.md`](en/06-invariants.md) | **33 条不变量**（两维标注），全卷锚点（INV-M/E/D/X） |
+| [`zh/06-invariants.md`](zh/06-invariants.md) | [`en/06-invariants.md`](en/06-invariants.md) | **36 条不变量**（两维标注），全卷锚点（INV-M/E/D/X） |
 | [`zh/07-sources.md`](zh/07-sources.md) | [`en/07-sources.md`](en/07-sources.md) | 两维定义与统计、**已知边界**、为何 0 条 Q0、三个可做实验 |
+| [`zh/09-change-gate.md`](zh/09-change-gate.md) | [`en/09-change-gate.md`](en/09-change-gate.md) | **变更治理**：脚本头 5 字段、出生点身份、路径级差集、启动器=链末端、三道准入闸 |
 | [`zh/08-evolution.md`](zh/08-evolution.md) | [`en/08-evolution.md`](en/08-evolution.md) | **演化史**：21 个真实触发 → 加了什么机制 → 对应不变量；含一次宿主迁移对照 |
 
 图源 / Diagram sources：[`figures/`](figures/)

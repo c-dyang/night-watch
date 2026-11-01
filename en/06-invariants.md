@@ -8,7 +8,7 @@ Two independent dimensions per entry (see the block below): **Stance** (is it ru
 
 > This architecture was **built up from real operation**: every invariant traces back to something that actually ran or actually broke.
 > What is missing is **quantification** ("how much worse without it"), not **evidence** ("whether it happened at all").
-> Current spread: **Q0 = 0, Q1 = 26, Q2 = 6, Q3 = 0** — see `07-sources.md` §2; why Q0 is zero: §5.
+> Current spread: **Q0 = 0, Q1 = 26, Q2 = 10, Q3 = 0** — see `07-sources.md` §2; why Q0 is zero: §5.
 
 **Citation rule**: the body always cites the ID form `[INV-M4]`; every invariant must be cited by at least one chapter — **an uncited entry is an orphan and gets deleted before release**.
 
@@ -64,6 +64,7 @@ Two independent dimensions per entry (see the block below): **Stance** (is it ru
 | INV-E4 | **Rating evidence comes only from production sessions**: no model self-reports, no document retellings | Substituting "is it well written" for "was it actually done" | The ledger rewards good writers, not correct behaviour | Running | Q1 |
 | INV-E5 | **Two latency classes**: immediate correction ≤1 round; late verdicts are recorded, not enforced | Running every verdict synchronously | The main path slows down, then silently degrades into "no audit" | Partial | Q2 |
 | INV-E6 | **Pre-checks must not become approvals**: pre-checks emit hints and risk, never "block everything" | Every action has to pass a gate | The unattended system stalls waiting for a human | Partial | Q2 |
+| INV-E7 | **Admission-gate inputs and verification must be machine-produced**: blast radius (downstream closure) and verification (compile + real run / historical replay) come from tools; "I read it once" is not verification | Intent was confirmed yet the change still broke something (2026-10-30: the `⟨seq N⟩` prefix was approved, who reads it was never checked) | Incident ships with the change; time-to-detect measured in hours; hits going N→0 still counts as a pass | Partial | Q2 |
 
 ---
 
@@ -93,6 +94,8 @@ Two independent dimensions per entry (see the block below): **Stance** (is it ru
 | INV-X3 | **Sessions are cache; files are truth**: every session may rotate daily, the main one included | Treating the session as storage | Clearing it loses memory | Running | Q1 |
 | INV-X4 | **Free/local models for judgement, cheap models for generation** | Spending a premium model on judging | Cost becomes unpredictable and judging frequency gets cut | Running | Q1 |
 | INV-X5 | **Silent failure must be distinguishable from silent success** | The "no output means fine" default | Failures stay unknown for weeks; incidents open with "it was working all along" | Running | Q1 |
+| INV-X6 | **Declarations and facts must be reconciled both ways**: listing "who I depend on" is not enough; also scan "who reads my output" and diff. A one-way self-report is never complete and fails silently | Only new consumers verified, never existing ones (2026-09-09 and 2026-10-30, same failure mode seven weeks apart) | The output format changes, consumer hits drop silently to zero, no error is raised | Partial | Q2 |
+| INV-X7 | **Identity is orthogonal to content and must be replayable**: `id` derives from the birthplace (first-registered path) and never changes; a content hash (md5) is not an identity | Deletion, missing tag and move all need automatic reconciliation, otherwise it is manual work | A one-character edit mints a new identity; the graph breaks daily; orphaned records cannot be re-matched to files | Partial | Q2 |
 
 ---
 
