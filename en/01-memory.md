@@ -261,3 +261,88 @@ If any of the three fails, the memory domain has degraded into "a pile of files"
 6. Only then add **external blind review**: at the single junction "candidate → ledger", scoring only, no pre-checks yet.
 
 By step 4 you already have a working unattended memory; step 6 is where trust begins. **Reverse the order and you get a pile of conclusions nobody believes.**
+
+---
+
+## 7. Injection tiers: never delete, never forget — govern injection only
+
+> This section refines §3.3 / §3.4 and corrects one point: **retirement is never automatic.** Automation produces only "temporarily unusable"; "intrinsically invalid" is set by a human.
+
+### 7.1 First principle
+
+**Memory is never deleted and never forgotten; the only valve is injection.**
+
+The storage layer reconciles and annotates; it does not delete. **Quality is not maintained by removal but by injection filtering plus retrieval.** Corollary: every governance action happens on the injection side; the store only grows.
+
+### 7.2 Two channels: push and pull are different things
+
+| Channel | Nature | What it carries | State visibility |
+|---|---|---|---|
+| **Question bank** (auto-inject list) | **push**, every turn | only currently usable entries (`A` + locked) | none — no evaluation inside the injection |
+| **Full-text search** (whole store) | **pull**, on demand | everything, including `D` / `X` | returned verbatim (`EXP#12 [X\|-6\|…]`) |
+
+**Same data, two channels, two semantics.** A tier change alters the *push level*, never the *retrievability* — a demoted entry still sits in the store and comes back with its state tag when searched. That is the dividing line between "grading" and "forgetting".
+
+Hard rule that follows: **push carries only "don't forget what"; pull carries "is this good".** No evaluative or inferential content ("this one is trustworthy", "this belongs to task type X") may enter push; per-turn imperative authority belongs to the user alone.
+
+### 7.3 Three states and their criteria
+
+| State | Meaning | Produced by | Reversible | Horizon |
+|---|---|---|---|---|
+| `A` | usable | default / re-evaluated after content edit | — | — |
+| `D` | **temporarily unusable**: the entry itself is not wrong, recent usage mismatched (wrong context, or genuinely wrong) | **automatic** (window negative-delta crosses a threshold) | yes — resets to `A` when the window rolls over | week / month |
+| `X` | **intrinsically invalid**: judged wrong or obsolete | **human** (or human+AI co-adjudication); automation must never write it | usually not; needs a human | permanent |
+
+Key points:
+
+1. **`D` reads the window delta, not the cumulative score.** Only new negative points inside the current period count (e.g. `-6` per week); the next period resets it. A frequently-injected entry therefore cannot drift into permanent demotion.
+2. **`X` is never triggered by score.** Measured counter-example: of eight `X` entries, three were knocked out by a single *illegal* `-6` verdict and five had zero verdicts at all — automatic retirement had **never once fired through normal accumulation**.
+3. **`D` thresholds should be sensitive, not conservative.** `D` recovers automatically at period end; a false `D` costs "don't push it this week". `X` is irreversible; a false `X` costs the entry forever. Costs differ by orders of magnitude, so the two must not share a scale.
+
+### 7.4 Deduplication: repeated observations are not independent evidence
+
+Multiple verdicts on the same entry within one batch or one day are **not independent evidence** — they often come from the same injection episode.
+
+Measured counter-example: one entry received eight verdicts in a single nightly run (nearly identical reasons), summing `-22` in one week — enough to blow through any threshold in one shot. Two countermeasures:
+
+- **In-batch dedup**: same `exp_id` inside one batch counts once (keep the harshest value);
+- **Same-day dedup**: same `exp_id` on the same day counts once.
+
+The raw stream is still written in full (for audit), but **only the surviving verdict contributes to the score**, tagged with `counted` — otherwise the stream total and the ledger score can never be reconciled, and no one can explain the difference later.
+
+### 7.5 A verdict must be replayable
+
+A verdict record must answer three questions: **when it happened, which turn it belonged to, and what the user actually said.**
+
+| Field | Meaning | Common mistake |
+|---|---|---|
+| `ts` | **judged at** | Sharing the same name as "happened at" ⇒ you read the judging time as the event time |
+| `source_ts` | **happened at** (points at the injection record) | Missing ⇒ the verdict cannot be replayed to a turn |
+| `msg` | the user's words for that turn (truncated) | Missing ⇒ the stated reason cannot be checked |
+
+One more trap: verdicts are produced **per entry**, while the write-back is **per injection row**. A row carrying three entries where only one is judged useless marks all three negative at row level — so row-level `hit/miss` is a coarse indicator only; the real rate must be aggregated per entry.
+
+### 7.6 Batch files: turn-range coupling
+
+The stream is one-line-per-verdict and has no notion of "which turns this batch covered", so the nightly stage cannot say "in turns X–Y these entries were judged useless". Fix: emit one batch file per blind-review run, filename carrying the turn range, content carrying every verdict plus its happened-at and the user's words. The nightly stage reads the newest N files by filename order and never has to scan contents.
+
+### 7.7 Empirical anchors (2025–2026)
+
+| Finding | Evidence |
+|---|---|
+| Failed experience is worse than none | skills distilled from failed runs scored **below the no-experience baseline in 6/6 benchmark-model cells**; hiding success/failure labels dropped one model from 0.7462 to 0.4000 |
+| Repeated observations need dependency awareness | GovMem cut false promotion from 0.597 to 0.040 while keeping 0.960 recall |
+| Single LLM verdicts are unstable | identical re-runs flip **11–14%**; a single verdict matches the multi-trial majority only ~86%; stabilising one verdict needs **10–15 trials** |
+| Memory can be poisoned long-term | injection rates 73–99%, cross-session activation 55–89%, persisting "until the memory is purged" |
+| Flat retrieval degrades as the library grows | synthesis across 124 papers: "flat retrieval can degrade as libraries grow" ⇒ with a store that only grows, hierarchy and ranking must carry the load |
+
+### 7.8 Failure modes in this section
+
+| Failure | Symptom | Countermeasure |
+|---|---|---|
+| Forgetting disguised as grading | handling "temporarily unusable" as "drop from store", losing good entries forever | grading changes push level only, never retrievability |
+| Evaluation on the fast channel | every injection carries "this is unverified / belongs to task type X" | push carries neutral content only; evaluation goes through pull |
+| Small-sample kill | one or two negatives retire an entry | window delta + dedup + `X` human-only |
+| Unreplayable verdicts | only an id and a score; no user words, no turn | `source_ts` + `msg` + batch files |
+| Dormant thresholds | the bar sits above real density, so the mechanism never fires | measure the real distribution first; sample size comes from the window, not from accumulation |
+

@@ -69,7 +69,7 @@ Not an installer, not a product manual, but a **technical architecture document*
 | 中文 | English | 读它能知道 |
 |---|---|---|
 | [`zh/00-front.md`](zh/00-front.md) | [`en/00-front.md`](en/00-front.md) | **两条硬性要求如何压出三个域**、与桌面助手/云 agent 的差别、三防真实状态 |
-| [`zh/01-memory.md`](zh/01-memory.md) | [`en/01-memory.md`](en/01-memory.md) | 四层金字塔、夜链三硬顺序、经验包的可信度协议 |
+| [`zh/01-memory.md`](zh/01-memory.md) | [`en/01-memory.md`](en/01-memory.md) | 四层金字塔、夜链三硬顺序、经验包的可信度协议、**注入分级（push/pull、A·D·X 三态）** |
 | [`zh/02-execution.md`](zh/02-execution.md) | [`en/02-execution.md`](en/02-execution.md) | 为什么判定要在会话之外、片段审计、预检防飘、评级来源 |
 | [`zh/03-device.md`](zh/03-device.md) | [`en/03-device.md`](en/03-device.md) | 四类信号、0 成本闸门三态、L0→L4 阶梯 |
 | [`zh/04-appendix-a-reference.md`](zh/04-appendix-a-reference.md) | [`en/04-appendix-a-reference.md`](en/04-appendix-a-reference.md) | 子系统体量与最小接口（~3k 行，8 个子系统） |
