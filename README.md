@@ -4,6 +4,7 @@
 **An architecture for personal agents with unbounded task scope and a single entry.**
 
 - 状态 Status：`v0.1-draft`（结构完整；**36 条不变量：受控量化 0 条 / 可追溯未量化 26 条 / 观察未量化 10 条** / 纯推理 0 条**）
+  - `10-ledger.md` §6.3 提出其中 6 条可从 `Q2` 升 `Q1`（已实现且有机器断言），并新增候选 `INV-X8`（宽表无执行权）；**总表尚未并入，故本行计数仍为 v0.1 基线**。
 - 署名 Author：`c-dyang`
 - 文档许可 Docs license：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) ｜ 附录代码 Appendix code：[MIT](https://opensource.org/licenses/MIT)
 - 在线阅读 Homepage：<https://c-dyang.github.io/night-watch/>
@@ -78,6 +79,7 @@ Not an installer, not a product manual, but a **technical architecture document*
 | [`zh/07-sources.md`](zh/07-sources.md) | [`en/07-sources.md`](en/07-sources.md) | 两维定义与统计、**已知边界**、为何 0 条 Q0、三个可做实验 |
 | [`zh/09-change-gate.md`](zh/09-change-gate.md) | [`en/09-change-gate.md`](en/09-change-gate.md) | **变更治理**：脚本头 5 字段、出生点身份、路径级差集、启动器=链末端、三道准入闸 |
 | [`zh/08-evolution.md`](zh/08-evolution.md) | [`en/08-evolution.md`](en/08-evolution.md) | **演化史**：21 个真实触发 → 加了什么机制 → 对应不变量；含一次宿主迁移对照 |
+| [`zh/10-ledger.md`](zh/10-ledger.md) | [`en/10-ledger.md`](en/10-ledger.md) | **事务台账（已实现）**：三入口硬上限 · 五问闸门 · 三个出口 · 九条内部不变量（含**宽表无执行权**）· 两处真消融 · 上线当天四个坑 · 五条已知限制 |
 
 图源 / Diagram sources：[`figures/`](figures/)
 
